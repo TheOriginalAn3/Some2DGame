@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.JPanel;
 import javax.swing.plaf.DimensionUIResource;
@@ -24,6 +25,10 @@ public class GamePannel extends JPanel implements Runnable {
 
     }
 
+
+
+    // Thread for updating the gamePannel. You can say it creates the FPS of a game
+    // Each update is equal to 1 FPS
     public void startGameThread(){
         gameThread = new Thread(this);
         gameThread.start();
@@ -31,8 +36,30 @@ public class GamePannel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
+        
+        while (gameThread.isAlive()) {
+            // Test PrintOut
+            // System.out.println("The Game loop is running");
+
+            // "Refresh" / Update frames
+            // Update information such as charachter position
+            update();
+
+
+            // Draw the screen with the updated info
+            repaint(); // Calls the paintComponent method (Dont give me crap about the naming, its built into java (╯°□°）╯︵ ┻━┻)
+        }
+
+    }
+
+    public void update() {
+
+    }
+
+    // Draw Method already exists in java. Use the paint component moethod of JPannel
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
     }
 
 }
