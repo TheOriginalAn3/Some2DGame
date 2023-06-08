@@ -44,21 +44,21 @@ public class Player extends Entity {
         try {
             /*
              * BufferedImage image =
-             * ImageIO.read(getClass().getResourceAsStream("/player/image.png"));
-             * would be better but it dosnt work. Using this workaround...
+             * ImageIO.read(new File("/player/image.png"));
+             * would be a workaround if getClass().getResourceAsStream() dosnt work
              */
-            up1 = ImageIO.read(new File("res/player/player_up_1.png"));
-            up2 = ImageIO.read(new File("res/player/player_up_2.png"));
-            upStatic = ImageIO.read(new File("res/player/player_up_Static.png"));
-            down1 = ImageIO.read(new File("res/player/player_down_1.png"));
-            down2 = ImageIO.read(new File("res/player/player_down_2.png"));
-            downStatic = ImageIO.read(new File("res/player/player_down_static.png"));
-            right1 = ImageIO.read(new File("res/player/player_right_1.png"));
-            right2 = ImageIO.read(new File("res/player/player_right_2.png"));
-            rightStatic = ImageIO.read(new File("res/player/player_right_static.png"));
-            left1 = ImageIO.read(new File("res/player/player_left_1.png"));
-            left2 = ImageIO.read(new File("res/player/player_left_2.png"));
-            leftStatic = ImageIO.read(new File("res/player/player_left_static.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_2.png"));
+            upStatic = ImageIO.read(getClass().getResourceAsStream("/player/player_up_Static.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/player/player_down_1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/player/player_down_2.png"));
+            downStatic = ImageIO.read(getClass().getResourceAsStream("/player/player_down_static.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_2.png"));
+            rightStatic = ImageIO.read(getClass().getResourceAsStream("/player/player_right_static.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/player/player_left_1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/player/player_left_2.png"));
+            leftStatic = ImageIO.read(getClass().getResourceAsStream("/player/player_left_static.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
