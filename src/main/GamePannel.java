@@ -2,9 +2,12 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.time.chrono.ThaiBuddhistChronology;
 
 import javax.swing.JPanel;
 import javax.swing.plaf.DimensionUIResource;
+
+import entity.Player;
 
 public class GamePannel extends JPanel implements Runnable {
     // Screen settings
@@ -19,6 +22,7 @@ public class GamePannel extends JPanel implements Runnable {
 
     private KeyHandler keyHandler = new KeyHandler();
     private Thread gameThread;
+    Player player = new Player(this, keyHandler);
 
     // Set player default position
     int playerX = 100;
