@@ -25,12 +25,6 @@ public class GamePannel extends JPanel implements Runnable {
     private Thread gameThread;
     Player player = new Player(this, keyHandler);
 
-    // Set player default position
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
-    double diagonalSpeed = playerSpeed - Math.sqrt(playerSpeed);
-
     // FPS and Frame/Update Restricting
     public final int FPS = 60;
     private double drawInterval = 1000000000 / FPS;
