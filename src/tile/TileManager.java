@@ -2,7 +2,10 @@ package tile;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,14 +16,18 @@ public class TileManager {
     private GamePannel gp;
     private Map<String, Tile> tileMap = new HashMap<>(); // Map each array index to a string for better readability
 
-    private int col;
-    private int row;
-    private int x;
-    private int y;
+    private int col = 0;
+    private int row = 0;
+    private int x = 0;
+    private int y = 0;
+
+    private String mapTileNum[][];
 
     public TileManager(GamePannel gp) {
         this.gp = gp;
+        mapTileNum = new String[gp.maxScreenCol][gp.maxScreenRow];
         getTileImage();
+        loadMap();
     }
 
     // Load the image for the Tile and put the Tiles in the Map
@@ -38,9 +45,6 @@ public class TileManager {
             tile.image = ImageHandler.readImage("res/tiles/wall_stone.png");
             tileMap.put("stone_wall", tile);
 
-
-            tile.image = null;
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,22 +54,51 @@ public class TileManager {
         return tileMap.get(tileName).image;
     }
 
+    public void loadMap() {
+        try {
+            // Read text file
+            InputStream is = getClass().getResourceAsStream("/maps/map01.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+            while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
+                String line = br.readLine();
+
+                while (col < gp.maxScreenCol) {
+                    String[] tileNames = line.split(" ");
+                    String tileName = tileNames[col];
+
+                    mapTileNum[col] [row] = tileName;
+
+                    col++;
+                }
+                if (col == gp.maxScreenCol) {
+                    col = 0;
+                    row++;
+                }
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void draw(Graphics2D g2) {
         col = 0;
         row = 0;
-        x = 0;
+        x = 0; // I have to do this because it starts at row No.2 if i dont...
         y = 0;
 
         while (col < gp.maxScreenCol && row <  gp.maxScreenRow ) {
-            g2.drawImage(getTile("grass"), x, y, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(getTile(mapTileNum[col][row]), x, y, gp.tileSize, gp.tileSize, null);
             col++;
-            x = col * gp.tileSize;
+            x += gp.tileSize;
 
             if (col == gp.maxScreenCol) {
                 col = 0;
                 x = 0;
                 row++;
-                y = row * gp.tileSize;
+                y += gp.tileSize;
             }
         }
     }
