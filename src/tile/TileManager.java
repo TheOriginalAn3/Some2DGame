@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import main.GamePannel;
+import main.ImageHandler;
 
 public class TileManager {
     private GamePannel gp;
@@ -31,15 +32,15 @@ public class TileManager {
     private void getTileImage() {
         try {
             Tile tile = new Tile();
-            tile.image = readImage("res/tiles/grass.png");
+            tile.image = ImageHandler.readImage("res/tiles/grass.png");
             tileMap.put("grass", tile);
 
             tile = new Tile();
-            tile.image = readImage("res/tiles/water.png");
+            tile.image = ImageHandler.readImage("res/tiles/water.png");
             tileMap.put("water", tile);
 
             tile = new Tile();
-            tile.image = readImage("res/tiles/wall_stone.png");
+            tile.image = ImageHandler.readImage("res/tiles/wall_stone.png");
             tileMap.put("stone_wall", tile);
 
 
@@ -49,14 +50,7 @@ public class TileManager {
             e.printStackTrace();
         }
     }
-    private BufferedImage readImage(String pathToImg) throws IOException {
-        BufferedImage img = null;
-        File file = new File(pathToImg);
-        if (file.exists()) {
-            img = ImageIO.read(file);
-        }
-        return img;
-    }
+
     public BufferedImage getTile(String tileName) {
         return tileMap.get(tileName).image;
     }

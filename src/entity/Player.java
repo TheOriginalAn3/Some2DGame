@@ -3,12 +3,11 @@ package entity;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 //import javax.imageio.stream.FileImageInputStream;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 
 import main.GamePannel;
+import main.ImageHandler;
 import main.KeyHandler;
 
 public class Player extends Entity {
@@ -47,18 +46,18 @@ public class Player extends Entity {
              * ImageIO.read(new File("/player/image.png"));
              * would be a workaround if getClass().getResourceAsStream() dosnt work
              */
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/player_up_2.png"));
-            upStatic = ImageIO.read(getClass().getResourceAsStream("/player/player_up_Static.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/player_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/player_down_2.png"));
-            downStatic = ImageIO.read(getClass().getResourceAsStream("/player/player_down_static.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/player_right_2.png"));
-            rightStatic = ImageIO.read(getClass().getResourceAsStream("/player/player_right_static.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/player_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/player_left_2.png"));
-            leftStatic = ImageIO.read(getClass().getResourceAsStream("/player/player_left_static.png"));
+            up1 = ImageHandler.readImage("res/player/player_up_1.png");
+            up2 = ImageHandler.readImage("res/player/player_up_2.png");
+            upStatic = ImageHandler.readImage("res/player/player_up_Static.png");
+            down1 = ImageHandler.readImage("res/player/player_down_1.png");
+            down2 = ImageHandler.readImage("res/player/player_down_2.png");
+            downStatic = ImageHandler.readImage("res/player/player_down_static.png");
+            right1 = ImageHandler.readImage("res/player/player_right_1.png");
+            right2 = ImageHandler.readImage("res/player/player_right_2.png");
+            rightStatic = ImageHandler.readImage("res/player/player_right_static.png");
+            left1 = ImageHandler.readImage("res/player/player_left_1.png");
+            left2 = ImageHandler.readImage("res/player/player_left_2.png");
+            leftStatic = ImageHandler.readImage("res/player/player_left_static.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
