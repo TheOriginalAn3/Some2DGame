@@ -71,15 +71,19 @@ public class Player extends Entity {
             // Basic up-down, left-right movement
             if (keyHandler.upPressed) {
                 direction = "up";
+                updateLastDirection();
                 y -= speed; // Same as y = y - speed
             } else if (keyHandler.downPressed) {
                 direction = "down";
+                updateLastDirection();
                 y += speed;
             } else if (keyHandler.leftPressed) {
                 direction = "left";
+                updateLastDirection();
                 x -= speed;
             } else if (keyHandler.rightPressed) {
                 direction = "right";
+                updateLastDirection();
                 x += speed;
             }
             spriteCounter++;
@@ -92,7 +96,10 @@ public class Player extends Entity {
             // Diagonal Up
             // Diagonal Down
         }
-        
+        else {
+            direction = (getLastDirection() + "Static");
+        }
+            
     }
 
     public void draw(Graphics2D g2) {
@@ -109,6 +116,10 @@ public class Player extends Entity {
                     image = up2;
                 }
                 break;
+            case "upStatic":
+                image = upStatic;
+                break;
+
             case "down":
                 if (spriteNum == 1) {
                     image = down1;
@@ -117,6 +128,10 @@ public class Player extends Entity {
                     image = down2;
                 }
                 break;
+            case "downStatic":
+                image = downStatic;
+                break;
+
             case "left":
                 if (spriteNum == 1) {
                     image = left1;
@@ -125,6 +140,10 @@ public class Player extends Entity {
                     image = left2;
                 }
                 break;
+            case "leftStatic":
+                image = leftStatic;
+                break;
+
             case "right":
                 if (spriteNum == 1) {
                     image = right1;
@@ -133,6 +152,8 @@ public class Player extends Entity {
                     image = right2;
                 }
                 break;
+            case "rightStatic":
+                image = rightStatic;
         }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }
