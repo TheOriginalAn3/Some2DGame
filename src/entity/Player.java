@@ -32,6 +32,7 @@ public class Player extends Entity {
         y = 100;
         speed = 4;
         direction = "down";
+        updateLastDirection();
         animationSpeedMultiplier = 1;
     }
     public void setAnimationSpeedMultiplier(double multiplier) {
@@ -154,6 +155,7 @@ public class Player extends Entity {
                 break;
             case "rightStatic":
                 image = rightStatic;
+                break;
         }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }
