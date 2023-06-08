@@ -10,22 +10,29 @@ public class GamePannel extends JPanel implements Runnable {
     final int originalTileSize = 16; // Default graphics size in px 16x16 tile
     final int scale = 3; // Multiplier for the tile size to make everithing bigger
 
-    final int tileSize = originalTileSize * scale; // Actual size that will be displayed 48x48 tile
-    final int maxScreenCol = 16; // Max ammount of tiles to be displayed
-    final int maxScreenRow = 12; // Max ammount of tiles to be displayed
-    final int screenWidth = tileSize * maxScreenCol; // actual window size 768px wide
-    final int screenHeight = tileSize * maxScreenRow; // actual window size 576px long
+    public final int tileSize = originalTileSize * scale; // Actual size that will be displayed 48x48 tile
+    public final int maxScreenCol = 16; // Max ammount of tiles to be displayed
+    public final int maxScreenRow = 12; // Max ammount of tiles to be displayed
+    public final int screenWidth = tileSize * maxScreenCol; // actual window size 768px wide
+    public final int screenHeight = tileSize * maxScreenRow; // actual window size 576px long
 
-    KeyHandler keyHandler = new KeyHandler();
-    Thread gameThread;
+    private KeyHandler keyHandler = new KeyHandler();
+    private Thread gameThread;
 
     // Set player default position
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 4;
+    double diagonalSpeed = playerSpeed - Math.sqrt(playerSpeed);
 
-
-
+    // FPS and Frame/Update Restricting
+    public final int FPS = 60;
+    private double drawInterval = 1000000000/FPS;
+    private double delta;
+    private long lastTime;
+    private long currentTime;
+    private long timer = 0;
+    private int frameCount = 0; // Same as drawCount. Counts how many frames have been displayed
 
     public GamePannel() {
 
@@ -49,25 +56,44 @@ public class GamePannel extends JPanel implements Runnable {
 
     @Override
     public void run() {
+        delta = 0;
+        lastTime = System.nanoTime();
 
         while (gameThread.isAlive()) {
             // Test PrintOut
             // System.out.println("The Game loop is running");
 
-            // "Refresh" / Update frames
-            // Update information such as charachter position
-            update();
+            currentTime = System.nanoTime();
+            timer += (currentTime - lastTime);
+            delta += (currentTime - lastTime) / drawInterval;
+            lastTime = currentTime;
 
-            // Draw the screen with the updated info
-            repaint(); // Calls the paintComponent method (Dont give me crap about the naming, its
-                       // built into java (╯°□°）╯︵ ┻━┻)
+            if (delta > 1) {
+                // Draw the screen with the updated info
+                update();
+                // "Refresh" / Update frame to show position of everythong
+                // Calls the paintComponent method (Dont give me crap about the naming, its
+                // built into java (╯°□°）╯︵ ┻━┻)
+                repaint();
+                delta--;
+                frameCount++;
+            }
+            
+            if (timer >= 1000000000) {
+                System.out.println("FPS: " + frameCount);
+                frameCount = 0;
+                timer = 0;
+            }
+
+
         }
 
     }
 
     public void update() {
         // Upper Lift corner is 0,0. X increses to the right. Y increses downwards lmao why T_T
-        // TODO: Change if-s to Case?
+
+        // Basic up-down, left-right movement
         if (keyHandler.upPressed) {
             playerY -= playerSpeed; // Same as playerY = playerY - playerSpeed
         }
@@ -80,6 +106,9 @@ public class GamePannel extends JPanel implements Runnable {
         else if (keyHandler.rightPressed) {
             playerX += playerSpeed;
         }
+        // TODO: Add support for diagonal movement
+        // Diagonal Up
+        // Diagonal Down
     }
 
     // Draw Method already exists in java. Use the paint component moethod of
