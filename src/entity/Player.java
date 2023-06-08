@@ -66,30 +66,33 @@ public class Player extends Entity {
     public void update() {
         // Upper Lift corner is 0,0. X increses to the right. Y increses downwards lmao
         // why T_T
+
+        if (keyHandler.downPressed || keyHandler.leftPressed || keyHandler.rightPressed || keyHandler.upPressed) {
+            // Basic up-down, left-right movement
+            if (keyHandler.upPressed) {
+                direction = "up";
+                y -= speed; // Same as y = y - speed
+            } else if (keyHandler.downPressed) {
+                direction = "down";
+                y += speed;
+            } else if (keyHandler.leftPressed) {
+                direction = "left";
+                x -= speed;
+            } else if (keyHandler.rightPressed) {
+                direction = "right";
+                x += speed;
+            }
+            spriteCounter++;
+            if ((spriteCounter * animationSpeedMultiplier) > defaultAnimationSpeed) {
+                if (spriteNum == 1) spriteNum = 2;
+                else if (spriteNum == 2) spriteNum =1;
+                spriteCounter = 0; 
+            }
+            // TODO: Add support for diagonal movement
+            // Diagonal Up
+            // Diagonal Down
+        }
         
-        // Basic up-down, left-right movement
-        if (keyHandler.upPressed) {
-            direction = "up";
-            y -= speed; // Same as y = y - speed
-        } else if (keyHandler.downPressed) {
-            direction = "down";
-            y += speed;
-        } else if (keyHandler.leftPressed) {
-            direction = "left";
-            x -= speed;
-        } else if (keyHandler.rightPressed) {
-            direction = "right";
-            x += speed;
-        }
-        spriteCounter++;
-        if ((spriteCounter * animationSpeedMultiplier) > defaultAnimationSpeed) {
-            if (spriteNum == 1) spriteNum = 2;
-            else if (spriteNum == 2) spriteNum =1;
-            spriteCounter = 0; 
-        }
-        // TODO: Add support for diagonal movement
-        // Diagonal Up
-        // Diagonal Down
     }
 
     public void draw(Graphics2D g2) {
