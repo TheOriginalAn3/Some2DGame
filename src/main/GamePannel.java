@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.plaf.DimensionUIResource;
 
 import entity.Player;
+import tile.TileManager;
 
 public class GamePannel extends JPanel implements Runnable {
     // Screen settings
@@ -21,6 +22,7 @@ public class GamePannel extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxScreenCol; // actual window size 768px wide
     public final int screenHeight = tileSize * maxScreenRow; // actual window size 576px long
 
+    private TileManager tileManager = new TileManager(this);
     private KeyHandler keyHandler = new KeyHandler();
     private Thread gameThread;
     Player player = new Player(this, keyHandler);
@@ -103,8 +105,10 @@ public class GamePannel extends JPanel implements Runnable {
         // TODO: Use Graphics2D from the start instead of converting?
         // Convert Graphics g obj to Graphics2D for added functions
         Graphics2D g2 = (Graphics2D) g;
-        player.draw(g2);
 
+        tileManager.draw(g2);
+
+        player.draw(g2);
         g2.dispose();
     }
 
