@@ -20,6 +20,7 @@ public class ImageHandler {
         }
         return img;
     }
+    // Alternative:
     // public static BufferedImage readImage(String pathToImg) throws IOException {
     //     BufferedImage img = null;
     //     File file = new File(pathToImg);

@@ -5,24 +5,22 @@ import java.awt.image.BufferedImage;
 //import javax.imageio.stream.FileImageInputStream;
 import java.io.IOException;
 
-
 import main.GamePannel;
 import main.ImageHandler;
 import main.KeyHandler;
 
 public class Player extends Entity {
 
-    GamePannel gp;
-    KeyHandler keyHandler;
+    private GamePannel gp;
+    private KeyHandler keyHandler;
     private BufferedImage image;
-    
 
     public Player(GamePannel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
         setDefaultValues();
-        getPlayerImage();
         setAnimationSpeedMultiplier(0.75);
+        getPlayerImage();
     }
 
     public void setDefaultValues() {
@@ -34,8 +32,9 @@ public class Player extends Entity {
         updateLastDirection();
         animationSpeedMultiplier = 1;
     }
+
     public void setAnimationSpeedMultiplier(double multiplier) {
-        animationSpeedMultiplier = animationSpeedMultiplier * (multiplier%100);
+        animationSpeedMultiplier = animationSpeedMultiplier * (multiplier % 100);
     }
 
     // Get sprite images for the player
@@ -88,18 +87,19 @@ public class Player extends Entity {
             }
             spriteCounter++;
             if ((spriteCounter * animationSpeedMultiplier) > defaultAnimationSpeed) {
-                if (spriteNum == 1) spriteNum = 2;
-                else if (spriteNum == 2) spriteNum =1;
-                spriteCounter = 0; 
+                if (spriteNum == 1)
+                    spriteNum = 2;
+                else if (spriteNum == 2)
+                    spriteNum = 1;
+                spriteCounter = 0;
             }
             // TODO: Add support for diagonal movement
             // Diagonal Up
             // Diagonal Down
-        }
-        else {
+        } else {
             direction = (getLastDirection() + "Static");
         }
-            
+
     }
 
     public void draw(Graphics2D g2) {

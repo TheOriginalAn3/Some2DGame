@@ -13,7 +13,7 @@ public class App {
         GamePannel gamePannel = new GamePannel();
         window.add(gamePannel);
 
-        window.pack(); // Causes this Window to resized to fit the child components and layouts
+        window.pack(); // Causes this Window to be resized in order to fit the child components and layouts
 
 
 
