@@ -27,7 +27,7 @@ public class TileManager {
         this.gp = gp;
         mapTileNum = new String[gp.maxScreenCol][gp.maxScreenRow];
         getTileImage();
-        loadMap("/maps/map01.txt");
+        loadMap("/maps/map02.txt");
     }
 
     // Load the image for the Tile and put the Tiles in the Map
@@ -44,6 +44,18 @@ public class TileManager {
             tile = new Tile();
             tile.image = ImageHandler.readImage("res/tiles/wall_stone.png");
             tileMap.put("stone_wall", tile);
+
+            tile = new Tile();
+            tile.image = ImageHandler.readImage("res/tiles/dirt.png");
+            tileMap.put("dirt", tile);
+
+            tile = new Tile();
+            tile.image = ImageHandler.readImage("res/tiles/sand.png");
+            tileMap.put("sand", tile);
+
+            tile = new Tile();
+            tile.image = ImageHandler.readImage("res/tiles/tree_grass.png");
+            tileMap.put("tree_grass", tile);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,7 +76,7 @@ public class TileManager {
                 String line = br.readLine();
 
                 while (col < gp.maxScreenCol) {
-                    String[] tileNames = line.split(" ");
+                    String[] tileNames = line.split(",");
                     String tileName = tileNames[col];
 
                     mapTileNum[col] [row] = tileName;
