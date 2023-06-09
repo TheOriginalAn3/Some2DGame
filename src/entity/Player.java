@@ -15,18 +15,28 @@ public class Player extends Entity {
     private KeyHandler keyHandler;
     private BufferedImage image;
 
+    // TODO: Make camera stop moving and allow the player to move to the edge of the map
+    // Camera position
+    public final int cameraX;
+    public final int cameraY;
+
     public Player(GamePannel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
+
+        cameraX = (gp.screenWidth/2) - (gp.tileSize/2);
+        cameraY = (gp.screenHeight/2) - (gp.tileSize/2);
+
         setDefaultValues();
         setAnimationSpeedMultiplier(0.75);
         getPlayerImage();
     }
 
+    
+
     public void setDefaultValues() {
         // Set player default position
-        x = 100;
-        y = 100;
+        setWorldPosition(32, 32, gp.tileSize);
         speed = 4;
         direction = "down";
         updateLastDirection();
@@ -71,19 +81,19 @@ public class Player extends Entity {
             if (keyHandler.upPressed) {
                 direction = "up";
                 updateLastDirection();
-                y -= speed; // Same as y = y - speed
+                worldPosY -= speed; // Same as y = y - speed
             } else if (keyHandler.downPressed) {
                 direction = "down";
                 updateLastDirection();
-                y += speed;
+                worldPosY += speed;
             } else if (keyHandler.leftPressed) {
                 direction = "left";
                 updateLastDirection();
-                x -= speed;
+                worldPosX -= speed;
             } else if (keyHandler.rightPressed) {
                 direction = "right";
                 updateLastDirection();
-                x += speed;
+                worldPosX += speed;
             }
             spriteCounter++;
             if ((spriteCounter * animationSpeedMultiplier) > defaultAnimationSpeed) {
@@ -156,6 +166,6 @@ public class Player extends Entity {
                 image = rightStatic;
                 break;
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, cameraX, cameraY, gp.tileSize, gp.tileSize, null);
     }
 }

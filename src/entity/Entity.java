@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class Entity {
 
-    protected int x, y;
+    protected int worldPosX, worldPosY;
     protected int speed;
 
     protected String direction;
@@ -16,6 +16,10 @@ public abstract class Entity {
         return lastDirection;
     }
 
+    protected void setWorldPosition(int tileColNr, int tileRowNr, int tileSize) {
+        worldPosX = tileColNr * tileSize;
+        worldPosY = tileRowNr * tileSize;
+    }
     protected BufferedImage up1, up2, upStatic, down1, down2, downStatic, right1, right2, rightStatic, left1, left2, leftStatic;
 
     protected int spriteNum = 1;
